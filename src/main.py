@@ -82,11 +82,11 @@ while running:
             if collision == "top":
                 player1.update_y(obstacle._Y - 64)
             if collision == "bottom":
-                player1.update_y(obstacle._Y)
+                player1.update_y(obstacle._Y + 64)
             if collision == "left":
                 player1.update_x(obstacle._X - 64)
             if collision == "right":
-                player1.update_y(obstacle._Y + 64)
+                player1.update_x(obstacle._X + 64)
 
     player1.render()
     for obstacle in obstacles:
