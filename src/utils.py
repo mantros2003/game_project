@@ -41,3 +41,92 @@ def detect_collision_edge(rect1, rect2):
             return "top"
     
     return None
+
+
+def collision_ob(px, py, objx, objy, r):
+    if  math.pow(px - objx, 2) + math.pow(py - objy, 2) <  math.pow(r, 2) :
+        return True
+    else :
+        return False
+    
+def dist(px, py, objx, objy):
+    return (math.pow(px - objx, 2) + math.pow(py - objy, 2))**(0.5)
+
+
+def solve_quadratic( a , b , c):
+    D = b**2 - 4*a*c
+    if D >= 0 :
+        x1 = (-b + (D)**(0.5))/(2*a)
+        x2 = (-b - (D)**(0.5))/(2*a)
+        return (x1,x2)
+
+
+def collision_correct( px, py, objx, objy, r  ):
+    
+    if (objx - px ) != 0 : 
+        m =  (objy - py)/(objx - px)
+        c1 = py - m*px
+
+        a = 1+ m**2
+        b = -2*objx + 2*m*(c1 - objy)
+        c = objx**2 + (c1-objy)**2 - r**2
+        
+        Roots = solve_quadratic(a,b,c)
+
+        y1 = m*Roots[0] + c1
+        y2 = m*Roots[1] + c1
+        
+        if( ( dist( px , py , Roots[0], y1 ) < dist( px , py , Roots[1], y2 ) ) ):
+                return ( Roots[0] , y1 )
+        else :
+                return ( Roots[1] , y2 )
+      
+    else :
+        y1 = objy - r
+        y2 = objy + r
+        if( abs( py - y1) <= abs( py - y2) ):
+                return ( px , y1 )
+        else :
+                return ( px , y2 )
+      
+def Attack_direction(A,S,D,W):
+     x = 0 
+     y = 0 
+     if( A ):
+           x = x - 1 
+     if( S ):
+           y = y - 1
+     if( D ):
+           x = x + 1 
+     if( W ):
+           y = y + 1 
+     return (x,y)
+def get_bullet_img(Dir):
+     x = Dir[0]
+     y = Dir[1]
+     if( x == 1 and y == 0 ):
+          return 0
+     if( x == 1 and y == 1 ):
+          return 1
+     if( x == 0 and y == 1 ):
+          return 2
+     if( x == -1 and y == 1 ):
+          return 3
+     if( x == -1 and y == 0 ):
+          return 4
+     if( x == -1 and y == -1 ):
+          return 5
+     if( x == 0 and y == -1 ):
+          return 6
+     if( x == 1 and y == -1 ):
+          return 7
+    
+    
+def is_valid_point( Screen_x , Screen_Y, given_x , given_y  ):
+    
+     print(given_x)
+     if(given_x >=  0    ):
+         return True 
+     return False
+          
+     
