@@ -1,13 +1,14 @@
 import pygame
 
 class Player:
-    def __init__(self, img: str, x: int, y: int, screen: pygame.Surface) -> None:
-        self.img_src = img
+    PLAYER_IMG_SRC = "assets/imgs/crazy.png"
+
+    def __init__(self, x: int, y: int, screen: pygame.Surface) -> None:
         self._X = x
         self._Y = y
         self.screen = screen
 
-        self.img = pygame.image.load(img)
+        self.img = pygame.image.load(self.PLAYER_IMG_SRC)
     
     def update_x(self, x: int) -> None:
         self._X = x
