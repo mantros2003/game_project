@@ -95,7 +95,7 @@ def collision_correct( px, py, objx, objy, r  ):
                 return ( px , y1 )
         else :
                 return ( px , y2 )
-      
+
 def attack_direction(A,S,D,W):
     x = 0 
     y = 0 

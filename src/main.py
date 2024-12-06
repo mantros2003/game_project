@@ -34,8 +34,8 @@ MAX_BULLET = 3
 bullet_queue = []
 wasd_arr = [False] * 4
 last_fire_time = -1
-
 running = True
+
 while running:
     screen.fill((255, 255, 255))
 
@@ -62,7 +62,7 @@ while running:
                 wasd_arr[2] = True
             if event.key == pygame.K_d:
                 wasd_arr[3] = True
-        
+
         # Event of releasing a key
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
@@ -145,5 +145,5 @@ while running:
             to_remove[i] = False
 
     player1.render()
-
+    
     pygame.display.update()
