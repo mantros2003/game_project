@@ -1,11 +1,19 @@
 import math
 
-def detect_collision_2d_tol(obj1x, obj1y, obj2x, obj2y, tol):
+def detect_collision_2d_tol(obj1x, obj1y, obj2x, obj2y, tol) -> bool:
     if math.pow(obj1x - obj2x, 2) + math.pow(obj1y - obj2y, 2) < pow(tol, 2):
         return True
     return False
 
-def detect_collision_edge(rect1, rect2):
+def detect_collision_circle_2d(obj1_dict, obj2_dict) -> bool:
+    center1 = (obj1_dict['x'] + obj1_dict['width']/2, obj1_dict['y'] + obj1_dict['height']/2)
+    center2 = (obj2_dict['x'] + obj2_dict['width']/2, obj2_dict['y'] + obj2_dict['height']/2)
+
+    if (center1[0] - center2[0])**2 + (center1[1] - center2[1])**2 <= ((obj1_dict['width'] + (obj2_dict['width']))**2)/4:
+        return True
+    return False
+
+def detect_collision_edge(rect1, rect2) -> bool:
     # Calculate edges of rect1
     rect1_left = rect1['x']
     rect1_right = rect1['x'] + rect1['width']
@@ -42,13 +50,12 @@ def detect_collision_edge(rect1, rect2):
     
     return None
 
-
-def collision_ob(px, py, objx, objy, r):
+def detect_collsiosion_circular(px, py, objx, objy, r):
     if  math.pow(px - objx, 2) + math.pow(py - objy, 2) <  math.pow(r, 2) :
         return True
     else :
         return False
-    
+
 def dist(px, py, objx, objy):
     return (math.pow(px - objx, 2) + math.pow(py - objy, 2))**(0.5)
 
@@ -88,39 +95,19 @@ def collision_correct( px, py, objx, objy, r  ):
                 return ( px , y1 )
         else :
                 return ( px , y2 )
-      
-def Attack_direction(A,S,D,W):
-     x = 0 
-     y = 0 
-     if( A ):
-           x = x - 1 
-     if( S ):
-           y = y - 1
-     if( D ):
-           x = x + 1 
-     if( W ):
-           y = y + 1 
-     return (x,y)
-def get_bullet_img(Dir):
-     x = Dir[0]
-     y = Dir[1]
-     if( x == 1 and y == 0 ):
-          return 0
-     if( x == 1 and y == 1 ):
-          return 1
-     if( x == 0 and y == 1 ):
-          return 2
-     if( x == -1 and y == 1 ):
-          return 3
-     if( x == -1 and y == 0 ):
-          return 4
-     if( x == -1 and y == -1 ):
-          return 5
-     if( x == 0 and y == -1 ):
-          return 6
-     if( x == 1 and y == -1 ):
-          return 7
-    
+
+def attack_direction(A,S,D,W):
+    x = 0 
+    y = 0 
+    if( A ):
+        x = x - 1 
+    if( S ):
+        y = y - 1
+    if( D ):
+        x = x + 1 
+    if( W ):
+        y = y + 1 
+    return (x,y)
     
 def is_valid_point( Screen_x , Screen_Y, given_x , given_y  ):
     
@@ -128,5 +115,8 @@ def is_valid_point( Screen_x , Screen_Y, given_x , given_y  ):
      if(given_x >=  0    ):
          return True 
      return False
-          
-     
+
+def on_screen(x: int, y: int, display_size) -> bool:
+    if x < -64 or x > display_size[0] or y < -64 or y > display_size[1]:
+        return False
+    return True
