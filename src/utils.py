@@ -59,7 +59,6 @@ def detect_collsiosion_circular(px, py, objx, objy, r):
 def dist(px, py, objx, objy):
     return (math.pow(px - objx, 2) + math.pow(py - objy, 2))**(0.5)
 
-
 def solve_quadratic( a , b , c):
     D = b**2 - 4*a*c
     if D >= 0 :
@@ -67,27 +66,24 @@ def solve_quadratic( a , b , c):
         x2 = (-b - (D)**(0.5))/(2*a)
         return (x1,x2)
 
-
 def collision_correct( px, py, objx, objy, r  ):
-    
-    if (objx - px ) != 0 : 
+    if (objx - px ) != 0 :
         m =  (objy - py)/(objx - px)
         c1 = py - m*px
 
         a = 1+ m**2
         b = -2*objx + 2*m*(c1 - objy)
         c = objx**2 + (c1-objy)**2 - r**2
-        
+
         Roots = solve_quadratic(a,b,c)
 
         y1 = m*Roots[0] + c1
         y2 = m*Roots[1] + c1
-        
+
         if( ( dist( px , py , Roots[0], y1 ) < dist( px , py , Roots[1], y2 ) ) ):
                 return ( Roots[0] , y1 )
         else :
                 return ( Roots[1] , y2 )
-      
     else :
         y1 = objy - r
         y2 = objy + r
@@ -109,12 +105,11 @@ def attack_direction(A,S,D,W):
         y = y + 1 
     return (x,y)
     
-def is_valid_point( Screen_x , Screen_Y, given_x , given_y  ):
-    
-     print(given_x)
-     if(given_x >=  0    ):
-         return True 
-     return False
+def is_valid_point(Screen_x ,Screen_Y, given_x , given_y):
+    print(given_x)
+    if given_x >= 0:
+        return True 
+    return False
 
 def on_screen(x: int, y: int, display_size) -> bool:
     if x < -64 or x > display_size[0] or y < -64 or y > display_size[1]:

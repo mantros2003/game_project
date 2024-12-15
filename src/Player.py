@@ -1,9 +1,11 @@
 import pygame
 
-class Player:
+class Player(pygame.sprite.Sprite):
     PLAYER_IMG_SRC = "assets/imgs/crazy.png"
 
     def __init__(self, x: int, y: int, screen: pygame.Surface) -> None:
+        super().__init__()
+        
         self._X = x
         self._Y = y
         self.screen = screen

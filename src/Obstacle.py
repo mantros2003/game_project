@@ -1,14 +1,23 @@
 import pygame
 
-class Obstacle:
-    def __init__(self, img: str, x: int, y: int, screen: pygame.Surface) -> None:
-        self.img_src = img
+class Obstacle(pygame.sprite.Sprite):
+    OBSTACLE_IMG_SRC = "assets/imgs/wood.png"
+
+    def __init__(self, x: int, y: int, screen: pygame.Surface, img: pygame.Surface = None) -> None:
+        super().__init__()
+
         self._X = x
         self._Y = y
+        self.radius = self._X
         self.screen = screen
 
-        self.img = pygame.image.load(img)
+        if img is None:
+            self.image = pygame.image.load(self.OBSTACLE_IMG_SRC)
+        else:
+            self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self._X, self._Y)
         #self.render()
     
-    def render(self) -> None:
-        self.screen.blit(self.img, (self._X, self._Y))
+    def update(self) -> None:
+        return
